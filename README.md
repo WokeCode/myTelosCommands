@@ -12,10 +12,8 @@ This guide will help you set up and use custom scripts for your Contiki NG envir
 
 2. **Clone the Repository:**
 
-    Replace this placeholder with your `git clone` command:
-
     ```sh
-    git clone <repository-url>
+    sudo git clone https://github.com/WokeCode/myTelosCommands.git
     ```
 
 3. **Make the Scripts Executable:**
