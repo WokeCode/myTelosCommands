@@ -1,0 +1,25 @@
+#!/bin/bash                                                                                     
+# This script uploads the Contiki project to the TelosB mote and starts a login session.        
+                                                                                                
+# Get the name of the current directory                                                         
+bottommost_folder=$(basename "$PWD")                                                            
+                                                                                                
+# Check if the project file exists                                                              
+if [ ! -f "$bottommost_folder.c" ]; then                                                        
+    echo "Error: The file $bottommost_folder.c does not exist in the current directory."        
+    exit 1                                                                                      
+fi                                                                                              
+                                                                                                
+# Upload the project to the mote                                                                
+echo "Uploading $bottommost_folder to the mote..."                                              
+make TARGET=sky MOTES=/dev/ttyUSB0 $bottommost_folder.upload                                    
+                                                                                                
+# Check if the upload was successful                                                            
+if [ $? -ne 0 ]; then                                                                           
+    echo "Error: Upload failed."                                                                
+    exit 1                                                                                      
+fi                                                                                              
+                                                                                                
+# Start the login session                                                                       
+echo "Starting login session..."                                                                
+make TARGET=sky MOTES=/dev/ttyUSB0 login

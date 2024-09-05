@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Start the login session
+echo "Starting login session..."
+make TARGET=sky MOTES=/dev/ttyUSB0 login

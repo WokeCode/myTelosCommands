@@ -1,0 +1,47 @@
+#!/bin/bash
+# This script creates a Makefile with the current (bottom-most) directory name as the CONTIKI_PROJECT
+
+# Get the name of the current directory
+bottommost_folder=$(basename "$PWD")
+
+# Create a Makefile with the desired content
+cat <<EOL > Makefile
+CONTIKI_PROJECT = $bottommost_folder
+all: \$(CONTIKI_PROJECT)
+
+CONTIKI = ../..
+include \$(CONTIKI)/Makefile.include
+EOL
+
+# Inform the user that the Makefile has been created
+echo "Makefile created with CONTIKI_PROJECT = $bottommost_folder"
+
+# Replace hyphens with underscores in the directory name
+safe_name=${bottommost_folder//-/_}
+
+# Create a C source file named after the bottom-most directory with specific content
+cat <<EOL > "$bottommost_folder.c"
+#include "contiki.h"
+#include <stdio.h> /* For printf() */
+
+#define BAUD_RATE 38400
+
+/*-----------------------------------------------------------*/
+PROCESS(${safe_name}_process, "${safe_name} process");
+AUTOSTART_PROCESSES(&${safe_name}_process);
+/*-----------------------------------------------------------*/
+
+
+// Define global variables
+PROCESS_THREAD(${safe_name}_process, ev, data)
+{
+    PROCESS_BEGIN();
+
+    // Add your process code here
+
+    PROCESS_END();
+}
+EOL
+
+# Inform the user that the files have been created
+echo "Makefile and $bottommost_folder.c
