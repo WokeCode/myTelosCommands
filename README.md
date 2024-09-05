@@ -2,9 +2,19 @@
 
 This guide will help you set up and use custom scripts for your Contiki NG environment. Follow the steps below to get everything configured and running.
 
+## Commands guide
+# makemote
+This will create a Makefile and a c file. The files will be created dependant on your current directory so i.e. inside ~/contiki-ng/exercises/hello-world running makemote will create makefile and hello-world.c
+
+# uploadmote
+This will run the commands to upload the files in the current directory and log in to the mote
+
+# loginmote
+This will log in to the mote
+
 ## Setup Instructions
 
-1. **Navigate to the Directory:**
+1. **Navigate to the Directory (inside of vagrant):**
 
     ```sh
     cd /usr/local/bin/
